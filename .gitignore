@@ -6,3 +6,6 @@ node_modules
 
 # WebStorm files
 .idea
+
+# .env file
+.env

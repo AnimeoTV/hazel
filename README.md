@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/vercel/hazel/tree/master.svg?style=svg)](https://circleci.com/gh/vercel/hazel/tree/master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-This project lets you deploy an update server for [Electron](https://www.electronjs.org) apps with ease: You only need to click a button.
+This project lets you deploy an update server for [Electron](https://www.electronjs.org) apps with ease: You only need to run a single command and fill out some text fields.
 
 The result will be faster and more lightweight than any other solution out there! :rocket:
 
@@ -13,13 +13,28 @@ The result will be faster and more lightweight than any other solution out there
 - Refreshes the cache every **15 minutes** (custom interval [possible](#options))
 - When asked for an update, it returns the link to the GitHub asset directly (saves bandwidth)
 - Supports **macOS** and **Windows** apps
-- Scales infinitely on [Vercel](https://vercel.com) Serverless Functions
 
 ## Usage
 
-Open this link in a new tab to deploy Hazel on [Vercel](https://vercel.com):
+You can easily deploy an update server. As the first step, clone the repository:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fhazel&env=ACCOUNT,REPOSITORY&envDescription=Enter%20your%20GitHub%20user%2Forg%20slug%20and%20the%20name%20of%20the%20repository%20that%20contains%20your%20Electron%20app.&envLink=https%3A%2F%2Fgithub.com%2Fvercel%2Fhazel%23usage&repo-name=hazel-update-server)
+```bash
+git clone https://github.com/AnimeoTV/hazel
+```
+
+Next, move into the directory:
+
+```bash
+cd hazel
+```
+
+Inside the directory, copy the .env.EXAMPLE file to .env and fill out the text fields.
+
+Then, to deploy it, run the following command :
+
+```bash
+npm run start"
+```
 
 Once it's deployed, paste the deployment address into your code (please keep in mind that updates should only occur in the production version of the app, not while developing):
 
@@ -35,15 +50,6 @@ autoUpdater.setFeedURL({ url })
 That's it! :white_check_mark:
 
 From now on, the auto updater will ask your Hazel deployment for updates!
-
-## Options
-
-The following environment variables can be used optionally:
-
-- `INTERVAL`: Refreshes the cache every x minutes ([restrictions](https://developer.github.com/changes/2012-10-14-rate-limit-changes/)) (defaults to 15 minutes)
-- `PRE`: When defined with a value of `1`, only pre-releases will be cached
-- `TOKEN`: Your GitHub token (for private repos)
-- `URL`: The server's URL (for private repos - when running on [Vercel](https://vercel.com), this field is filled with the URL of the deployment automatically)
 
 ## Statistics
 
@@ -97,7 +103,7 @@ http.createServer((req, res) => {
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device
 2. Move into the directory of your clone: `cd hazel`
-3. Install [Vercel CLI](https://vercel.com/cli) and run the development server: `vercel dev`
+3. Install the packages with `npm i` and run the development server: `npm run dev`
 
 ## Credits
 

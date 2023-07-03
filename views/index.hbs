@@ -143,11 +143,11 @@
           <footer>
             <div id="version">{{version}}</div>
 
-            {{#xif " isPrivateRepo == false "}}
+            {{#if (eq isPrivateRepo false)}}
               <a id="release-notes" href={{releaseNotes}}>Release Notes</a>
               <a id="all-releases" href={{allReleases}}>All Releases</a>
               <a href={{github}}>GitHub</a>
-            {{/xif}}
+            {{/if}}
           </footer>
       </main>
     </div>

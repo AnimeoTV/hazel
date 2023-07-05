@@ -4,8 +4,7 @@
   "main": "lib/index.js",
   "description": "Lightweight update server for Electron apps",
   "scripts": {
-    "start": "dotenv micro lib/server.js",
-    "dev": "dotenv micro-dev lib/server.js",
+    "start": "dotenv node .",
     "test": "xo && dotenv jest"
   },
   "license": "MIT",
@@ -32,15 +31,14 @@
   "dependencies": {
     "async-retry": "1.2.3",
     "date-fns": "1.29.0",
-    "dotenv-cli": "^7.2.1",
+    "dotenv-cli": "7.2.1",
+    "express": "4.18.2",
     "express-useragent": "1.0.12",
     "fetch": "1.1.0",
     "finalhandler": "1.1.0",
     "handlebars": "4.0.11",
     "jest": "24.0.0",
     "just-handlebars-helpers": "^1.0.19",
-    "micro": "9.3.3",
-    "micro-dev": "3.1.0",
     "ms": "2.1.1",
     "node-fetch": "2.0.0",
     "router": "1.3.2",

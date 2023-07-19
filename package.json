@@ -5,6 +5,7 @@
   "description": "Lightweight update server for Electron apps",
   "scripts": {
     "start": "dotenv node .",
+    "prettier": "prettier --single-quote --no-semi --write --no-editorconfig **/*.js",
     "test": "xo && dotenv jest"
   },
   "license": "MIT",
@@ -23,8 +24,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "yarn test && :",
       "prettier --single-quote --no-semi --write --no-editorconfig",
+      "npm test && :",
       "git add"
     ]
   },

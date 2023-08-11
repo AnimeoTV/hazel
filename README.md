@@ -1,6 +1,5 @@
 # Hazel
 
-[![CircleCI](https://circleci.com/gh/vercel/hazel/tree/master.svg?style=svg)](https://circleci.com/gh/vercel/hazel/tree/master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
 This project lets you deploy an update server for [Electron](https://www.electronjs.org) apps with ease: You only need to run a single command and fill out some text fields.

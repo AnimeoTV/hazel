@@ -78,6 +78,14 @@ As you can see in [platform.js](https://github.com/vercel/hazel/blob/master/lib/
 
 Displays an overview page showing the cached repository with the different available platforms and file sizes. Links to the repo, releases, specific cached version and direct downloads for each platform are present.
 
+## /api/uptime
+
+Returns an object with the property `uptime` which is the uptime of the update server in seconds.
+
+## /api/latest
+
+Return an object with
+
 ### /download
 
 Automatically detects the platform/OS of the visitor by parsing the user agent and then downloads the appropriate copy of your application.

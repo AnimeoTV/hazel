@@ -1,6 +1,5 @@
 # Hazel
 
-[![CircleCI](https://circleci.com/gh/vercel/hazel/tree/master.svg?style=svg)](https://circleci.com/gh/vercel/hazel/tree/master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
 This project lets you deploy an update server for [Electron](https://www.electronjs.org) apps with ease: You only need to run a single command and fill out some text fields.
@@ -8,7 +7,6 @@ This project lets you deploy an update server for [Electron](https://www.electro
 The result will be faster and more lightweight than any other solution out there! :rocket:
 
 - Recommended by Electron [here](https://www.electronjs.org/docs/tutorial/updates#deploying-an-update-server)
-- Built on top of [micro](https://github.com/zeit/micro), the tiniest HTTP framework for Node.js
 - Pulls the latest release data from [GitHub Releases](https://help.github.com/articles/creating-releases/) and caches it in memory
 - Refreshes the cache every **15 minutes** (custom interval [possible](#options))
 - When asked for an update, it returns the link to the GitHub asset directly (saves bandwidth)
@@ -77,6 +75,14 @@ As you can see in [platform.js](https://github.com/vercel/hazel/blob/master/lib/
 ### /
 
 Displays an overview page showing the cached repository with the different available platforms and file sizes. Links to the repo, releases, specific cached version and direct downloads for each platform are present.
+
+## /api/uptime
+
+Returns an object with the property `uptime` which is the uptime of the update server in seconds.
+
+## /api/latest
+
+Return an object with
 
 ### /download
 

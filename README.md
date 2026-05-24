@@ -1,15 +1,10 @@
 # Hazel
 
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
-
 This project lets you deploy an update server for [Electron](https://www.electronjs.org) apps with ease: You only need to run a single command and fill out some text fields.
 
-The result will be faster and more lightweight than any other solution out there! :rocket:
-
-- Recommended by Electron [here](https://www.electronjs.org/docs/tutorial/updates#deploying-an-update-server)
-- Pulls the latest release data from [GitHub Releases](https://help.github.com/articles/creating-releases/) and caches it in memory
+- Pulls the latest release data from [GitHub Releases](https://help.github.com/articles/creating-releases/) or [Forgejo Releases](https://forgejo.org/docs/latest/user/releases/) (probably also works for Gitea instances) and caches it in memory
 - Refreshes the cache every **15 minutes** (custom interval [possible](#options))
-- When asked for an update, it returns the link to the GitHub asset directly (saves bandwidth)
+- When asked for an update, it returns the link to the asset directly, saves bandwidth (GitHub only, Forgejo doesn't have a way to download assets without a token)
 - Supports **macOS**, **Windows**, and **Linux** apps
 
 ## Usage
@@ -51,15 +46,13 @@ From now on, the auto updater will ask your Hazel deployment for updates!
 
 ## Statistics
 
-Since Hazel routes all the traffic for downloading the actual application files to [GitHub Releases](https://help.github.com/articles/creating-releases/), you can use their API to determine the download count for a certain release.
-
-As an example, check out the [latest Hyper release](https://api.github.com/repos/vercel/hyper/releases/latest) and search for `mac.zip`. You'll find a release containing a sub property named `download_count` with the amount of downloads as its value.
+Since Hazel routes all the traffic for downloading the actual application files to either [GitHub Releases](https://help.github.com/articles/creating-releases/) or [Forgejo Releases](https://forgejo.org/docs/latest/user/releases/), you can use their API to determine the download count for a certain release.
 
 ## Release Files Naming And Extension
 
 We find and cache releases for each platform by the file name and extension. it may be obvious but can save quite some times for those who just getting started.
 
-As you can see in [platform.js](https://github.com/vercel/hazel/blob/master/lib/platform.js) and [aliases.js](https://github.com/vercel/hazel/blob/master/lib/aliases.js), for each OS, the extensions are expected as below:
+As you can see in [platform.js](https://github.com/AnimeoTV/hazel/blob/master/lib/platform.js) and [aliases.js](https://github.com/AnimeoTV/hazel/blob/master/lib/aliases.js), for each OS, the extensions are expected as below:
 
 | OS                             | :platform           | .Extension                                              |
 |--------------------------------|---------------------|---------------------------------------------------------|
@@ -107,18 +100,6 @@ If the latest version of the application wasn't yet pulled from [GitHub Releases
 This endpoint was specifically crafted for the Windows platform (called "win32" [in Node.js](https://nodejs.org/api/process.html#process_process_platform)).
 
 Since the [Windows version](https://github.com/Squirrel/Squirrel.Windows) of Squirrel (the software that powers auto updates inside [Electron](https://www.electronjs.org)) requires access to a file named "RELEASES" when checking for updates, this endpoint will respond with a cached version of the file that contains a download link to a `.nupkg` file (the application update).
-
-## Programmatic Usage
-
-You can add Hazel to an existing HTTP server, if you want. For example, this will allow you to implement custom analytics on certain paths.
-
-```js
-const hazel = require('hazel-server')
-
-http.createServer((req, res) => {
-  hazel(req, res)
-})
-```
 
 ## Contributing
 

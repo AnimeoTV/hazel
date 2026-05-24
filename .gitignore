@@ -9,3 +9,7 @@ node_modules
 
 # .env file
 .env
+
+# PNPM files
+
+pnpm-workspace.yaml

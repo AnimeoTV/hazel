@@ -1,6 +1,6 @@
 {
   "name": "hazel-server",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "main": "lib/index.js",
   "description": "Lightweight update server for Electron apps",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "xo && dotenv jest"
   },
   "license": "MIT",
-  "repository": "vercel/hazel",
+  "repository": "AnimeoTV/hazel",
   "xo": {
     "extends": [
       "prettier"

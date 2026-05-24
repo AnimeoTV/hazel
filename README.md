@@ -29,7 +29,7 @@ Then, to deploy it, run the following command :
 npm run start"
 ```
 
-Once it's deployed, paste the deployment address into your code (please keep in mind that updates should only occur in the production version of the app, not while developing):
+Once it's deployed, for the built-in electron updater, paste the deployment address into your code (please keep in mind that updates should only occur in the production version of the app, not while developing):
 
 ```js
 const { app, autoUpdater } = require('electron')
@@ -40,7 +40,7 @@ const url = `${server}/update/${process.platform}/${app.getVersion()}`
 autoUpdater.setFeedURL({ url })
 ```
 
-That's it! :white_check_mark:
+For the electron-updater module, you can read [this page](https://www.electron.build/docs/features/auto-update), use "generic" for the provider and "<your-deployment-url>/update/electronUpdater/<current-app-version>/" for the URL.
 
 From now on, the auto updater will ask your Hazel deployment for updates!
 
@@ -54,14 +54,15 @@ We find and cache releases for each platform by the file name and extension. it 
 
 As you can see in [platform.js](https://github.com/AnimeoTV/hazel/blob/master/lib/platform.js) and [aliases.js](https://github.com/AnimeoTV/hazel/blob/master/lib/aliases.js), for each OS, the extensions are expected as below:
 
-| OS                             | :platform           | .Extension                                              |
-|--------------------------------|---------------------|---------------------------------------------------------|
-| Windows                        | win32, windows, win | .exe                                                    |
-| macOS                          | dmg                 | .dmg                                                    |
-| macOS                          | darwin              | .zip (only if the file name contains "mac" or "darwin") |
-| Linux with RPM package manager | fedora              | .rpm                                                    |
-| Linux with DEB package manager | debian              | .deb                                                    |
-| Linux                          | appimage            | .AppImage                                               |
+| OS                                | :platform           | .Extension                                              |
+|-----------------------------------|---------------------|---------------------------------------------------------|
+| Windows                           | win32, windows, win | .exe                                                    |
+| macOS                             | dmg                 | .dmg                                                    |
+| macOS                             | darwin              | .zip (only if the file name contains "mac" or "darwin") |
+| Linux with RPM package manager    | fedora              | .rpm                                                    |
+| Linux with DEB package manager    | debian              | .deb                                                    |
+| Linux with PACMAN package manager | debian              | .pacman                                                 |
+| Linux                             | appimage            | .AppImage                                               |
 
 ## Routes
 
@@ -75,13 +76,13 @@ Returns an object with the property `uptime` which is the uptime of the update s
 
 ## /api/latest
 
-Return an object with
+Return an object with the property `version` which is the latest version available.
 
 ### /download
 
 Automatically detects the platform/OS of the visitor by parsing the user agent and then downloads the appropriate copy of your application.
 
-If the latest version of the application wasn't yet pulled from [GitHub Releases](https://help.github.com/articles/creating-releases/), it will return a message and the status code `404`. The same happens if the latest release doesn't contain a file for the detected platform.
+If the latest version of the application wasn't yet pulled from [GitHub Releases](https://help.github.com/articles/creating-releases/) or [Forgejo Releases](https://forgejo.org/docs/latest/user/releases/), it will return a message and the status code `404`. The same happens if the latest release doesn't contain a file for the detected platform.
 
 ### /download/:platform
 
@@ -93,13 +94,17 @@ If the cache isn't filled yet or doesn't contain a download link for the specifi
 
 Checks if there is an update available by reading from the cache.
 
-If the latest version of the application wasn't yet pulled from [GitHub Releases](https://help.github.com/articles/creating-releases/), it will return the `204` status code. The same happens if the latest release doesn't contain a file for the specified platform.
+If the latest version of the application wasn't yet pulled from [GitHub Releases](https://help.github.com/articles/creating-releases/) or [Forgejo Releases](https://forgejo.org/docs/latest/user/releases/), it will return the `204` status code. The same happens if the latest release doesn't contain a file for the specified platform.
 
 ### /update/win32/:version/RELEASES
 
 This endpoint was specifically crafted for the Windows platform (called "win32" [in Node.js](https://nodejs.org/api/process.html#process_process_platform)).
 
 Since the [Windows version](https://github.com/Squirrel/Squirrel.Windows) of Squirrel (the software that powers auto updates inside [Electron](https://www.electronjs.org)) requires access to a file named "RELEASES" when checking for updates, this endpoint will respond with a cached version of the file that contains a download link to a `.nupkg` file (the application update).
+
+### /update/electronUpdater/:version/:file
+
+This endpoint was specifically crafted for electron-updater, which requires access to a file named "latest.yml" (or "latest-mac.yml", or "latest-linux.yml" depending on the platform). The endpoint will respond with a cached version of the requested file that contains a download link to the application's installer for the corresponding platform.
 
 ## Contributing
 
@@ -109,8 +114,6 @@ Since the [Windows version](https://github.com/Squirrel/Squirrel.Windows) of Squ
 
 ## Credits
 
-Huge thanks to my ([@leo](https://github.com/leo)'s) friend [Andy](http://twitter.com/andybitz_), who suggested the name "Hazel" (since the auto updater software inside [Electron](https://www.electronjs.org) is called "Squirrel") and [Matheus](https://twitter.com/matheusfrndes) for collecting ideas with me.
+[RASTIQ](https://github.com/rastiqdev) - electron-updater and Forgejo support
 
-## Author
-
-Leo Lamprecht ([@notquiteleo](https://twitter.com/notquiteleo)) - [Vercel](https://vercel.com)
+Leo Lamprecht ([@leo](https://x.com/leo)) - [Original version of hazel](https://github.com/vercel/hazel)
